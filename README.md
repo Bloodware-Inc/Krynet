@@ -1,8 +1,9 @@
 <div align="center">
 
-# 🛠️ Krynet Source Repository - Source Branch
+# 🇮🇸 Krynet Source Repository - Source Branch
 
-**Official Source Code for All Platforms** *Build any platform from source • Full transparency • AGPL-3.0 Licensed*
+**Official Source Code for All Platforms • Based in Iceland**  
+*Build any platform from source • Full transparency • AGPL-3.0 Licensed*
 
 <p>
 <img src="https://img.shields.io/badge/License-AGPL%203.0-red" alt="AGPL-3.0">
@@ -169,6 +170,10 @@ open ../Krynet.dmg
 
 ---
 
-**🔒 Krynet Source Branch © 2030** *Linux/Android precompiled. Windows/macOS/iOS: Build from source.*
+---
+
+**🇮🇸 Krynet Source Branch © 2026** *Linux/Android precompiled. Windows/macOS/iOS: Build from source.*
+
+AGPL-3.0 • [sciter.com](https://sciter.com/) SDK required • [Krynet](https://github.com/Krynet-LLC/Krynet/tree/Source)
 
 AGPL-3.0 • [sciter.com](https://sciter.com/) SDK required • [Krynet](https://github.com/Krynet-LLC/Krynet/tree/Source)
