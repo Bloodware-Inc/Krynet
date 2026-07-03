@@ -1,6 +1,3 @@
-Here is the updated, production-ready `README.md` markdown reflecting the shift from AppImage to a universal, sandboxed **Flatpak** build system for Linux. All code formatting, file layout cues, and compile instructions have been updated to be strict, accurate, and completely production-ready.
-
-```markdown
 <div align="center">
 
 # 🛠️ Krynet Source Repository - Source Branch
