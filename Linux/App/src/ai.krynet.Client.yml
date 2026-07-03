@@ -1,0 +1,47 @@
+id: ai.krynet.Client
+runtime: org.gnome.Platform
+runtime-version: '47'
+sdk: org.gnome.Sdk
+command: krynet
+finish-args:
+  - --share=network
+  - --socket=x11
+  - --socket=wayland
+  - --device=dri
+  - --filesystem=xdg-config/gtk-3.0:ro # Integrates system themes on non-GNOME environments
+  - --env=GDK_BACKEND=wayland,x11     # Automatically falls back to X11 if Wayland fails
+modules:
+  - name: krynet
+    buildsystem: simple
+    build-commands:
+      - |
+        g++ src/krynet_linux_secure.cpp \
+          -I sciter/include \
+          -L sciter/bin.linux/x64 \
+          -lsciter \
+          $(pkg-config --cflags --libs gtk+-3.0) \
+          -ldl \
+          -std=c++17 \
+          -O3 \
+          -msse2 \
+          -flto \
+          -fdata-sections \
+          -ffunction-sections \
+          -Wl,--gc-sections \
+          -Wl,-rpath,/app/lib \
+          -s \
+          -DNDEBUG \
+          -o krynet
+      - install -d /app/bin
+      - install -d /app/lib
+      - install -d /app/share/applications
+      - install -d /app/share/icons/hicolor/256x256/apps
+      - install -d /app/share/metainfo
+      - install -m 755 krynet /app/bin/krynet
+      - install -m 755 sciter/bin.linux/x64/libsciter.so /app/lib/libsciter.so
+      - install -m 644 ai.krynet.Client.desktop /app/share/applications/ai.krynet.Client.desktop
+      - install -m 644 krynet.png /app/share/icons/hicolor/256x256/apps/ai.krynet.Client.png
+      - install -m 644 ai.krynet.Client.metainfo.xml /app/share/metainfo/ai.krynet.Client.metainfo.xml
+    sources:
+      - type: dir
+        path: .
