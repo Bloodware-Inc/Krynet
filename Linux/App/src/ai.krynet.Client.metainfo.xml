@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>ai.krynet.Client</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Proprietary</project_license>
+  <name>Krynet</name>
+  <summary>Privacy-first network native client for Krynet</summary>
+  <description>
+    <p>A production-ready minimal web client wrapper forcing software rendering and network isolation parameters.</p>
+  </description>
+  <launchable type="desktop-id">ai.krynet.Client.desktop</launchable>
+  <url type="homepage">https://krynet.ai</url>
+  <recommends>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </recommends>
+</component>
