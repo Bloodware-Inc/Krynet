@@ -1,7 +1,14 @@
 [Desktop Entry]
 Type=Application
+Version=1.1
 Name=Krynet
-Exec=krynet
+GenericName=Secure Web Client
+Comment=Privacy-first network native client for Krynet
+Exec=AppRun %u
 Icon=krynet
-Categories=Network;
 Terminal=false
+X-AppImage-Version=1.0.0
+Categories=Network;WebBrowser;
+MimeType=x-scheme-handler/krynet;
+Keywords=krynet;secure;network;crypto;
+StartupWMClass=KrynetLinuxClient
