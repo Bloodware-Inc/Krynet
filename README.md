@@ -2,8 +2,7 @@
 
 # 🛠️ Krynet Source Repository - Source Branch
 
-**Official Source Code for All Platforms**  
-*Build any platform from source • Full transparency • AGPL-3.0 Licensed*
+**Official Source Code for All Platforms** *Build any platform from source • Full transparency • AGPL-3.0 Licensed*
 
 <p>
 <img src="https://img.shields.io/badge/License-AGPL%203.0-red" alt="AGPL-3.0">
@@ -18,13 +17,13 @@
 
 ## 📋 Platform Status
 
-| Platform | Build Status | Precompiled |
-|----------|--------------|-------------|
-| **Windows** | 🔨 **Source Available** (MinGW64) | ❌ **Unavailable** |
-| **macOS** | 🔨 **Source Available** (Xcode/CMake) | ❌ **Unavailable** |
-| **iOS** | 🔨 **Source Available** (Xcode) | ❌ **Unavailable** |
-| **Linux** | 🔨 **Source Available** (+ Precompiled) | ✅ **Available** |
-| **Android** | 🔨 **Source Available** (+ Precompiled) | ✅ **Available** |
+| Platform | Build Status | Precompiled | Packaging / Format |
+|----------|--------------|-------------|--------------------|
+| **Windows** | 🔨 **Source Available** (MinGW64) | ❌ **Unavailable** | Native Executable (`.exe`) |
+| **macOS** | 🔨 **Source Available** (Xcode/CMake) | ❌ **Unavailable** | Disk Image (`.dmg`) |
+| **iOS** | 🔨 **Source Available** (Xcode) | ❌ **Unavailable** | App Bundle (`.ipa`) |
+| **Linux** | 🔨 **Source Available** (+ Precompiled) | ✅ **Available** | **Universal Flatpak Sandbox** (`.flatpak`) |
+| **Android** | 🔨 **Source Available** (+ Precompiled) | ✅ **Available** | Application Package (`.apk`) |
 
 **Linux & Android: Precompiled binaries ready. Others: Build from source only.**
 
@@ -36,104 +35,11 @@
 
 | SDK | Download | Usage |
 |-----|----------|-------|
-| **Sciter.JS** | [![Sciter](https://sciter.com/)](https://sciter.com/) | **All platforms** |
-| **Ultralight** | [![Ultralight](https://ultralig.ht/)](https://ultralig.ht/) | **Alternative renderer** |
+| **Sciter.JS** | [sciter.com](https://sciter.com/) | **All platforms** |
+| **Ultralight** | [ultralig.ht](https://ultralig.ht/) | **Alternative renderer** |
 
 **Setup:**
 ```bash
 cd Source/Windows    # or Linux, Android, etc.
 mkdir -p thirdparty/sciter
 # Download Sciter SDK → extract here
-```
-
----
-
-## 🚀 Quick Start - Build From Source Branch
-
-```bash
-# Clone Source branch
-git clone -b Source https://github.com/JamesHickers/Krynet.git
-cd Krynet
-
-# Platform builds
-cd Source/Windows && make release      # Windows (source only)
-cd Source/Linux  && ./build.sh         # Linux (precompiled available)
-cd Source/Android && ./gradlew assembleRelease  # Android (precompiled available)
-```
-
----
-
-## 🏗️ Platform-Specific Builds
-
-### 🪟 **Windows**
-```bash
-cd Source/Windows
-mkdir -p /sciter && # Add Sciter SDK
-make clean && make release
-# → Krynet.exe
-```
-
-### 🐧 **Linux**
-```bash
-cd Source/Linux
-./build.sh --release
-# → Krynet.AppImage (precompiled also available)
-```
-
-### 🤖 **Android**
-```bash
-cd Source/Android
-./gradlew assembleRelease
-# → krynet.apk (precompiled also available)
-```
-
-### 📱 **iOS**
-```bash
-cd Source/iOS
-# 1. Add Sciter.Lite SDK to /sciter/
-# 2. Drag libSciterLit.a → Xcode project
-open Krynet.xcodeproj
-
-# In Xcode:
-# → Select "Krynet" target
-# → Signing & Capabilities → Add your Apple ID
-# → Product → Archive
-# → Distribute App → Ad Hoc / Development → Export IPA
-# → krynet.ipa ✅
----
-### 🍎 **macOS**
-```bash
-cd Source/macOS
-mkdir build && cd build
-# 1. Add Sciter.JS SDK to /sciter/
-
-# CMake build
-cmake .. -DSCITER_PATH=/sciter -DCMAKE_BUILD_TYPE=Release
-make -j8
-open ../Krynet.dmg
-# → Krynet.app inside DMG ✅
-```
-## ✅ Built Features
-```
-🔹 wss://gateway.krynet.ai → Real-time
-🔹 REST APIs → Platform services
-🔹 WebTransfer → Files/media
-🔹 WebTransport → Screenshare
-🔹 TLS 1.3 → Full encryption
-🔹 Sciter → Native performance
-```
-## 📜 AGPL-3.0 License
----
-
-✅ Modify -  Distribute -  Commercial OK
-✅ Network use → Share source
-❌ No proprietary forks
----
-<div align="center">
-
-**🔒 Krynet Source Branch © 2030**  
-*Linux/Android precompiled. Windows/macOS/iOS: Build from source.*
-
-<sub>AGPL-3.0 • [sciter.com](https://sciter.com/) SDK required • [Krynet](https://github.com/Krynet-LLC/Krynet/tree/Source)</sub>
-
-</div>
