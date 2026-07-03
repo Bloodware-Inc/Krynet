@@ -52,7 +52,7 @@ mkdir -p thirdparty/sciter
 
 ```bash
 # Clone Source branch
-git clone -b Source [https://github.com/JamesHickers/Krynet.git](https://github.com/JamesHickers/Krynet.git)
+git clone -b Source [https://github.com/Krynet-LLC/Krynet.git](https://github.com/Krynet-LLC/Krynet.git)
 cd Krynet
 
 # Platform builds
