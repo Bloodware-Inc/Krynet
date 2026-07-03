@@ -1,48 +1,41 @@
-cmake_minimum_required(VERSION 3.18) # Bumped for better modern Android NDK support
+cmake_minimum_required(VERSION 3.18)
+project(krynet LANGUAGES CXX)
 
-project(krynet VERSION 1.0.0 LANGUAGES CXX)
-
-# Force modern CMake standards and prevention of decay to older standards
+# Force modern C++17 optimizations without standard library bloat extensions
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Define the shared library target
-add_library(krynet SHARED
-    app/src/main/cpp/main.cpp
-)
+# Direct target definition
+add_library(krynet SHARED app/src/main/cpp/main.cpp)
 
-# --- Compiler Flags & Optimizations ---
-# Hide symbols by default for better performance and smaller binary size (security best practice)
+# Production Performance & Size Optimizations
 set_target_properties(krynet PROPERTIES
     CXX_VISIBILITY_PRESET hidden
     VISIBILITY_INLINES_HIDDEN ON
+    POSITION_INDEPENDENT_CODE ON
 )
 
 target_compile_options(krynet PRIVATE
-    -Wall -Wextra -Wpedantic # Strict warnings
-    $<$<CONFIG:Release>:-O3 -flto> # Enable aggressive optimization & Link-Time Optimization in Release
+    -O3                             # Peak performance optimization
+    -flto                           # Link-Time Optimization (interprocedural analysis)
+    -fomit-frame-pointer            # Frees up a register for performance
+    -fvisibility=hidden             # Strips unnecessary symbols to shrink binary size
+    -fdata-sections -ffunction-sections # Prepares dead code for stripping
 )
 
-if(NOT ANDROID)
-    message(FATAL_ERROR "This CMakeLists.txt is tailored strictly for the Android NDK platform.")
-endif()
-
-# --- Include Directories (Modern Target-Based Scoping) ---
-target_include_directories(krynet PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/app/sciter/include
+target_link_options(krynet PRIVATE
+    -Wl,--gc-sections               # Dead code elimination (strips unused Sciter functions)
+    -Wl,--icf=all                   # Identical Code Folding (merges duplicate functions)
+    -Wl,-s                          # Strip all symbols/debug details completely
 )
 
-# --- Imported Prebuilt Libraries ---
-# Instead of linking raw paths, we define the static prebuilt library properly
-add_library(sciter_android STATIC IMPORTED)
-set_target_properties(sciter_android PROPERTIES
-    IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/app/sciter/libsciter-android.a"
-)
+# Minimal target scoping
+target_include_directories(krynet PRIVATE app/sciter/include)
 
-# --- Link Libraries ---
+# Fast direct linking (Minimal tracking overhead)
 target_link_libraries(krynet PRIVATE
-    sciter_android
+    ${CMAKE_CURRENT_SOURCE_DIR}/app/sciter/libsciter-android.a
     log
     android
 )
