@@ -3,16 +3,34 @@ plugins {
 }
 
 android {
+    namespace 'com.krynet'
     compileSdk 34
 
     defaultConfig {
         applicationId "com.krynet"
-        minSdk 21
+        minSdk 24 // Raised to 24 (Android 7.0) to native-support modern C++17 execution pipelines cleanly
         targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
 
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++17"
+                cppFlags "-std=c++17 -O3 -flto -fno-rtti -fno-exceptions"
+                arguments "-DANDROID_STL=c++_shared", "-DANDROID_ARM_NEON=TRUE"
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            signingConfig signingConfigs.debug // Swap out with production release keys inside pipeline
+            
+            ndk {
+                debugSymbolLevel 'NONE' // Completely strips debugging tables out of native binary packages
             }
         }
     }
@@ -20,6 +38,17 @@ android {
     externalNativeBuild {
         cmake {
             path "CMakeLists.txt"
+            version "3.22.1"
         }
     }
+    
+    dependenciesInfo {
+        includeInApk false
+        includeInBundle false
+    }
+}
+
+dependencies {
+    // References Sciter SDK Android distribution wrappers (.aar) located via local path environmental structures
+    implementation fileTree(dir: "${System.getenv('SCITER_SDK')}/bin.android", include: ['*.aar'])
 }
